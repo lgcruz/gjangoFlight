@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title> Flying </title>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta charset = "utf-8">
+			<meta name = "keywords" content = "Buscar, Vuelos">
+
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		</head>
+		<body>
+			<h1 class="text-center">Flying</h1>
+			<form method="post" id="query_vuelo">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-lg-4"></div>
+					<div class="col-lg-2">
+						<label>Origen: </label>
+					</div>
+					<div class="col-lg-2">
+						<div class="form-group">
+							<select name="origen" class="form-control">
+								{% for origenO in countriesO %}
+								<option value="{{origenO}}">{{origenO}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-4"></div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4"></div>
+					<div class="col-lg-2">
+						<label>Destino: </label>
+					</div>
+					<div class="col-lg-2">
+						<div class="form-group">
+							<select name="destino" class="form-control">
+								{% for origenD in countriesD %}
+								<option value="{{origenD}}">{{origenD}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-4"></div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4"></div>
+					<div class="col-lg-4">
+						<div class="radio">
+						  <label><input type="radio" name="vuelo" value="0" checked>Vuelo Directo</label>
+						</div>
+						<div class="radio">
+						  <label><input type="radio" name="vuelo" value="1">Vuelo con Escalas</label>
+						</div>
+					</div>
+					<div class="col-lg-4"></div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6"></div>
+					<div class="col-lg-2">
+						<button type="submit" class="btn">Buscar</button>
+					</div>
+					<div class="col-lg-4"></div>
+				</div>
+			</form>
+			<div class="row">
+				<div class="col-lg-2"></div>
+				<div class="col-lg-8">
+					<section>
+						<h5>Resultados de la búsqueda</h5>
+						<div class="table table-bordered table-responsive">
+							<table class="table">
+								<thead>
+								<tr>	
+									<th>ID</th>
+									<th>Aerolinea</th>									
+									<th>IATA</th>
+									<th>Pais</th>
+									<th>Aeropuerto Salida</th>
+									<th>Aeropuerto Destino</th>
+								</tr>
+								</thead>
+								<tbody>
+									{% for linea in aerolineas %}
+										<tr>
+											{% for i in linea %}
+												<td>{{ i }}</td>
+											{% endfor %}
+											<td>{{ origen }}</td>
+											<td>{{ destino }}</td>
+										</tr>
+									{% endfor %}
+
+								</tbody>
+							</table>
+						</div>
+					</section>
+				</div>
+				<div class="col-lg-2"></div>
+			</div>
+		</body>
+	</html>
